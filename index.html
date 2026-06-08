@@ -107,6 +107,20 @@
     .slide-index{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-top:38px;}
     .index-item{background:rgba(255,255,255,.74);border:1px solid rgba(11,103,178,.13);border-radius:22px;padding:20px 24px;font-size:25px;font-weight:760;color:#1f4362;}
     .index-item span{color:var(--blue);font-weight:900;margin-right:12px;}
+
+    .mail-table{width:100%;border-collapse:separate;border-spacing:0 10px;margin-top:28px;}
+    .mail-table th{font-size:20px;color:var(--blue);text-align:left;padding:0 18px 2px;font-weight:900;}
+    .mail-table td{background:rgba(255,255,255,.84);font-size:22px;line-height:1.3;color:#24445f;font-weight:620;padding:16px 18px;border-top:1px solid rgba(11,103,178,.12);border-bottom:1px solid rgba(11,103,178,.12);vertical-align:top;}
+    .mail-table td:first-child{border-left:1px solid rgba(11,103,178,.12);border-radius:18px 0 0 18px;font-weight:820;color:#12395f;width:84px;text-align:center;}
+    .mail-table td:last-child{border-right:1px solid rgba(11,103,178,.12);border-radius:0 18px 18px 0;}
+    .mail-table.causes{border-spacing:0 7px;margin-top:22px;}
+    .mail-table.causes td{font-size:20px;line-height:1.24;padding:11px 18px;}
+    .mail-table.causes td:nth-child(2){width:46%;}
+    .mail-table.causes td:nth-child(3){font-weight:760;color:#193a59;}
+    .mark-knowledge{background:#fff3bf!important;border-color:#f5d76e!important;box-shadow:inset 0 0 0 9999px rgba(255,243,191,.35);}
+    .mark-chip{display:inline-block;margin-left:10px;padding:4px 10px;border-radius:999px;background:#fff0a8;color:#8a6400;font-size:16px;font-weight:900;vertical-align:middle;}
+    .source-note{margin-top:18px;color:#7890a6;font-size:18px;font-weight:750;}
+
     @media print{
       html,body{overflow:visible;background:white;display:block;}
       .deck-shell{display:block;width:auto;height:auto;}
@@ -121,7 +135,6 @@
     <main class="stage" id="stage" aria-live="polite">
 
       <section class="slide cover active kicker" data-title="cover">
-        <div class="brand"><span class="brand-mark"></span>Carat × POSCO</div>
         <div class="page-tag">대면 피드백 세션 초안</div>
         <div class="content">
           <div class="eyebrow">AI 영상·음악 제작 피드백</div>
@@ -137,8 +150,7 @@
         <div class="footer"><span>← → 또는 Space로 이동</span><div class="progress"><span></span></div></div>
       </section>
 
-      <section class="slide">
-        <div class="brand"><span class="brand-mark"></span>Carat × POSCO</div><div class="page-tag">01</div>
+      <section class="slide"><div class="page-tag">01</div>
         <div class="content">
           <div class="eyebrow">오늘 이야기할 내용</div>
           <h2>결과물을 평가하기보다,<br/>다음 제작이 쉬워지는 방법을 정리합니다</h2>
@@ -152,8 +164,7 @@
         </div><div class="footer"><span>AI 영상·음악 제작 피드백</span><div class="progress"><span></span></div></div>
       </section>
 
-      <section class="slide section">
-        <div class="brand"><span class="brand-mark"></span>Carat × POSCO</div><div class="page-tag">SECTION 1</div>
+      <section class="slide section"><div class="page-tag">SECTION 1</div>
         <div class="content">
           <div class="eyebrow">1. 발생한 문제 정리</div>
           <h1>먼저, 어디서 막혔는지<br/>유형별로 나눠보겠습니다</h1>
@@ -161,87 +172,72 @@
         </div><div class="footer"><span>문제 정리</span><div class="progress"><span></span></div></div>
       </section>
 
-      <section class="slide">
-        <div class="brand"><span class="brand-mark"></span>Carat × POSCO</div><div class="page-tag">02</div>
+      <section class="slide"><div class="page-tag">02</div>
         <div class="content">
-          <div class="eyebrow">고객 피드백에서 확인한 문제</div>
-          <h2>“공통 문제”는 고객이 말한 어려움을<br/>제작 관점으로 묶은 표현입니다</h2>
-          <table class="table" style="margin-top:34px">
-            <tr><th>대화에서 확인한 어려움</th><th>덱에서 묶은 문제</th></tr>
-            <tr><td>나눔의집 영상에서 같은 컷 반복, 블랙 프레임, 컷 연결 오류가 보임</td><td>합본·컷 관리 문제</td></tr>
-            <tr><td>내레이션 발음·목소리 톤이 흔들리고, BGM/효과음이 중간에 빠지거나 분위기가 맞지 않음</td><td>오디오 분리 제작 필요</td></tr>
-            <tr><td>“나눔의집” 같은 한글 표기가 틀리고, 식판/인물/소품이 컷마다 달라짐</td><td>한글·실사 디테일 고정 문제</td></tr>
-            <tr><td>말하는 동물·포석호 캐릭터처럼 같은 대상이 여러 컷에 나와야 함</td><td>캐릭터/입모양 일관성 문제</td></tr>
-            <tr><td>포스코 주제가에서 참고곡 느낌은 살리되 너무 똑같으면 안 됨</td><td>레퍼런스 반영 범위 조절 문제</td></tr>
+          <div class="eyebrow">고객사 메일 워딩</div>
+          <h2>메일 원문</h2>
+          <table class="mail-table">
+            <tr><th>No.</th><th>고객사 워딩 그대로</th></tr>
+            <tr><td>1</td><td>일단 제가 너무 모든 것을 시키다보니 토큰소모량이 너무 빠르고 정확성이 낮아지는 것 같습니다.</td></tr>
+            <tr><td>2</td><td>효율적으로 할 수 있는 지시 방안을 안내해주시면 감사하겠습니다..!</td></tr>
+            <tr><td>3</td><td>5초씩 생성한 영상을 붙이는 과정에서 음성이 탈락되거나, 중복으로 발생하는 일도 많고</td></tr>
+            <tr><td>4</td><td>5초 내에서도 앞부분이 더 길어야 하는데 다른 부분을 임의로 길게 만들고, 조정을 요청하면 동일한 컷이 반복되거나 잘려버리더라구요.</td></tr>
+            <tr><td>5</td><td>추후 합본 제작시 잘못된 버전을 붙이는 경우도 많아서 계속 수정을 지시하게 됩니다.</td></tr>
+            <tr><td>6</td><td>일관성 있는 인물 생성으로 스토리 영상을 제작</td></tr>
+            <tr><td>7</td><td>사운드 생성(음성, 나래이션)의 정확도와 일관성 (첫번째 5초와 마지막 5초의 성우를 동일한 목소리를 쓰길 희망)</td></tr>
+            <tr><td>8</td><td>제작하면서 점점 영상 톤이 변경되는 점 보완</td></tr>
+            <tr><td>9</td><td>모든 영상의 한글 컨트롤이 쉽지 않을 것 같은데 처음부터 최대한 배제하고 생성하는 법</td></tr>
           </table>
-        </div><div class="footer"><span>고객 피드백 기반 문제 정리</span><div class="progress"><span></span></div></div>
+        </div><div class="footer"><span>고객사 메일 워딩</span><div class="progress"><span></span></div></div>
       </section>
 
-      <section class="slide">
-        <div class="brand"><span class="brand-mark"></span>Carat × POSCO</div><div class="page-tag">03</div>
+      <section class="slide"><div class="page-tag">03</div>
         <div class="content">
-          <div class="eyebrow">유즈케이스별 문제</div>
-          <h2>막힌 지점은 유즈케이스마다 달랐습니다</h2>
-          <table class="table simple-table">
-            <tr><th>유즈케이스</th><th>주로 생긴 문제</th></tr>
-            <tr><td>나고양씨의 운수 좋은 날</td><td>말하는 동물의 표정, 입모양, 대사 전달이 어색해질 수 있음</td></tr>
-            <tr><td>포석호 캐릭터 활용</td><td>컷마다 캐릭터 외형, 비율, 색감이 달라질 수 있음</td></tr>
-            <tr><td>실사 콘텐츠 / 나눔의집</td><td>인물, 식판, 간판, 한글 자막, 오디오, 컷 연결 문제 발생</td></tr>
-            <tr><td>음악 제작 / 포스코 주제가</td><td>참고곡의 분위기는 살리되, 너무 비슷하지 않게 만드는 방법이 필요했음</td></tr>
+          <div class="eyebrow">워딩 + 원인</div>
+          <h2>메일 원문 / 원인</h2>
+          <table class="mail-table causes">
+            <tr><th>No.</th><th>고객사 워딩 그대로</th><th>원인</th></tr>
+            <tr><td>1</td><td>일단 제가 너무 모든 것을 시키다보니 토큰소모량이 너무 빠르고 정확성이 낮아지는 것 같습니다.</td><td>요청 범위 과다</td></tr>
+            <tr><td>2</td><td>효율적으로 할 수 있는 지시 방안을 안내해주시면 감사하겠습니다..!</td><td>제작 순서 부재</td></tr>
+            <tr><td>3</td><td>5초씩 생성한 영상을 붙이는 과정에서 음성이 탈락되거나, 중복으로 발생하는 일도 많고</td><td>영상·오디오 합본 분리 필요</td></tr>
+            <tr><td>4</td><td>5초 내에서도 앞부분이 더 길어야 하는데 다른 부분을 임의로 길게 만들고, 조정을 요청하면 동일한 컷이 반복되거나 잘려버리더라구요.</td><td>짧은 컷 길이·편집점 한계</td></tr>
+            <tr><td>5</td><td>추후 합본 제작시 잘못된 버전을 붙이는 경우도 많아서 계속 수정을 지시하게 됩니다.</td><td>버전·컷 관리 필요</td></tr>
+            <tr><td>6</td><td>일관성 있는 인물 생성으로 스토리 영상을 제작</td><td>기준 이미지 / R2V 필요</td></tr>
+            <tr><td>7</td><td>사운드 생성(음성, 나래이션)의 정확도와 일관성 (첫번째 5초와 마지막 5초의 성우를 동일한 목소리를 쓰길 희망)</td><td>내레이션·BGM 분리 필요</td></tr>
+            <tr><td>8</td><td>제작하면서 점점 영상 톤이 변경되는 점 보완</td><td>키비주얼·톤 고정 필요</td></tr>
+            <tr><td>9</td><td>모든 영상의 한글 컨트롤이 쉽지 않을 것 같은데 처음부터 최대한 배제하고 생성하는 법</td><td>한글 생성 한계</td></tr>
           </table>
-        </div><div class="footer"><span>유즈케이스별 문제</span><div class="progress"><span></span></div></div>
+        </div><div class="footer"><span>고객사 워딩과 원인</span><div class="progress"><span></span></div></div>
       </section>
 
-      <section class="slide section">
-        <div class="brand"><span class="brand-mark"></span>Carat × POSCO</div><div class="page-tag">SECTION 2</div>
+      <section class="slide"><div class="page-tag">04</div>
         <div class="content">
-          <div class="eyebrow">2. 문제가 생긴 이유</div>
-          <h1>각 문제의 원인을<br/>짧고 명확하게 정리합니다</h1>
-          <p class="subtitle">여기서 나온 공통 원인을 다음 장의 사전 지식에서 풀어 설명합니다.</p>
-        </div><div class="footer"><span>문제 원인</span><div class="progress"><span></span></div></div>
-      </section>
-
-      <section class="slide">
-        <div class="brand"><span class="brand-mark"></span>Carat × POSCO</div><div class="page-tag">04</div>
-        <div class="content">
-          <div class="eyebrow">원인 요약</div>
-          <h2>문제가 생긴 이유는 비교적 명확합니다</h2>
-          <table class="table">
-            <tr><th>문제</th><th>왜 생겼나</th></tr>
-            <tr><td>인물·캐릭터가 달라짐</td><td>기준 이미지나 캐릭터 시트가 충분히 고정되지 않아서</td></tr>
-            <tr><td>말하는 동물 입모양이 어색함</td><td>동물 립싱크는 모델이 정확히 맞추기 어려워서</td></tr>
-            <tr><td>한글 자막·간판이 틀림</td><td>영상 생성 모델은 한글 글자를 안정적으로 만들지 못해서</td></tr>
-            <tr><td>내레이션 발음과 톤이 흔들림</td><td>영상 안에서 음성까지 같이 만들면 목소리와 발음이 바뀔 수 있어서</td></tr>
-            <tr><td>BGM이 어울리지 않음</td><td>영상 분위기와 음악 감정을 따로 조절하기 어려워서</td></tr>
+          <div class="eyebrow">사전지식 표시</div>
+          <h2>원인 / 사전지식</h2>
+          <table class="mail-table causes">
+            <tr><th>No.</th><th>고객사 워딩 그대로</th><th>원인</th></tr>
+            <tr><td>1</td><td>일단 제가 너무 모든 것을 시키다보니 토큰소모량이 너무 빠르고 정확성이 낮아지는 것 같습니다.</td><td class="mark-knowledge">요청 범위 과다 <span class="mark-chip">작게 나누기</span></td></tr>
+            <tr><td>2</td><td>효율적으로 할 수 있는 지시 방안을 안내해주시면 감사하겠습니다..!</td><td class="mark-knowledge">제작 순서 부재 <span class="mark-chip">제작 흐름</span></td></tr>
+            <tr><td>3</td><td>5초씩 생성한 영상을 붙이는 과정에서 음성이 탈락되거나, 중복으로 발생하는 일도 많고</td><td class="mark-knowledge">영상·오디오 합본 분리 필요 <span class="mark-chip">오디오 분리</span></td></tr>
+            <tr><td>4</td><td>5초 내에서도 앞부분이 더 길어야 하는데 다른 부분을 임의로 길게 만들고, 조정을 요청하면 동일한 컷이 반복되거나 잘려버리더라구요.</td><td class="mark-knowledge">짧은 컷 길이·편집점 한계 <span class="mark-chip">4~6초 컷</span></td></tr>
+            <tr><td>5</td><td>추후 합본 제작시 잘못된 버전을 붙이는 경우도 많아서 계속 수정을 지시하게 됩니다.</td><td>버전·컷 관리 필요</td></tr>
+            <tr><td>6</td><td>일관성 있는 인물 생성으로 스토리 영상을 제작</td><td class="mark-knowledge">기준 이미지 / R2V 필요 <span class="mark-chip">R2V</span></td></tr>
+            <tr><td>7</td><td>사운드 생성(음성, 나래이션)의 정확도와 일관성 (첫번째 5초와 마지막 5초의 성우를 동일한 목소리를 쓰길 희망)</td><td class="mark-knowledge">내레이션·BGM 분리 필요 <span class="mark-chip">TTS/BGM</span></td></tr>
+            <tr><td>8</td><td>제작하면서 점점 영상 톤이 변경되는 점 보완</td><td class="mark-knowledge">키비주얼·톤 고정 필요 <span class="mark-chip">기준 이미지</span></td></tr>
+            <tr><td>9</td><td>모든 영상의 한글 컨트롤이 쉽지 않을 것 같은데 처음부터 최대한 배제하고 생성하는 법</td><td class="mark-knowledge">한글 생성 한계 <span class="mark-chip">후편집</span></td></tr>
           </table>
-        </div><div class="footer"><span>원인 요약 1</span><div class="progress"><span></span></div></div>
+          <div class="source-note">연한 표시 = 다음 장 사전지식에서 설명</div>
+        </div><div class="footer"><span>사전지식 표시</span><div class="progress"><span></span></div></div>
       </section>
 
-      <section class="slide">
-        <div class="brand"><span class="brand-mark"></span>Carat × POSCO</div><div class="page-tag">05</div>
+      <section class="slide section"><div class="page-tag">SECTION 2</div>
         <div class="content">
-          <div class="eyebrow">원인 요약</div>
-          <h2>합본과 음악 제작에서도 원인이 있었습니다</h2>
-          <table class="table">
-            <tr><th>문제</th><th>왜 생겼나</th></tr>
-            <tr><td>같은 컷 반복·블랙 프레임</td><td>여러 5초 컷을 합치는 과정에서 쓸 컷과 순서 확인이 부족해서</td></tr>
-            <tr><td>실사 소품이 달라짐</td><td>식판, 반찬, 조끼, 위생모 같은 세부 요소는 말로만 고정하기 어려워서</td></tr>
-            <tr><td>참고곡과 너무 비슷해질까 걱정됨</td><td>음악 생성 시 “무엇을 참고하고 무엇은 새로 만들지”를 나눠 말해야 해서</td></tr>
-          </table>
-          <div class="big-note">그래서 다음 장부터는 이 원인들을 줄이는 방법을 쉽게 정리합니다.</div>
-        </div><div class="footer"><span>원인 요약 2</span><div class="progress"><span></span></div></div>
-      </section>
-
-      <section class="slide section">
-        <div class="brand"><span class="brand-mark"></span>Carat × POSCO</div><div class="page-tag">SECTION 3</div>
-        <div class="content">
-          <div class="eyebrow">3. 공통적으로 알아두면 좋은 내용</div>
+          <div class="eyebrow">2. 공통적으로 알아두면 좋은 내용</div>
           <h1>해결 방법은 복잡하지 않습니다.<br/>작게 나눠 만들면 됩니다</h1>
         </div><div class="footer"><span>공통 지식</span><div class="progress"><span></span></div></div>
       </section>
 
-      <section class="slide">
-        <div class="brand"><span class="brand-mark"></span>Carat × POSCO</div><div class="page-tag">06</div>
+      <section class="slide"><div class="page-tag">05</div>
         <div class="content">
           <div class="eyebrow">영상 제작 방식</div>
           <h2>영상은 가능하면 R2V로 만드는 것이 좋습니다</h2>
@@ -260,8 +256,7 @@
         </div><div class="footer"><span>R2V / Seedance 2.0</span><div class="progress"><span></span></div></div>
       </section>
 
-      <section class="slide">
-        <div class="brand"><span class="brand-mark"></span>Carat × POSCO</div><div class="page-tag">07</div>
+      <section class="slide"><div class="page-tag">06</div>
         <div class="content">
           <div class="eyebrow">R2V의 한계와 해결 방법</div>
           <h2>R2V를 써도 따로 챙겨야 하는 부분이 있습니다</h2>
@@ -275,8 +270,7 @@
         </div><div class="footer"><span>R2V 한계와 해결</span><div class="progress"><span></span></div></div>
       </section>
 
-      <section class="slide">
-        <div class="brand"><span class="brand-mark"></span>Carat × POSCO</div><div class="page-tag">08</div>
+      <section class="slide"><div class="page-tag">07</div>
         <div class="content">
           <div class="eyebrow">오디오</div>
           <h2>효과음은 영상에서 가져가도 되지만,<br/>내레이션과 BGM은 따로 만드는 게 안전합니다</h2>
@@ -288,8 +282,7 @@
         </div><div class="footer"><span>오디오 제작</span><div class="progress"><span></span></div></div>
       </section>
 
-      <section class="slide">
-        <div class="brand"><span class="brand-mark"></span>Carat × POSCO</div><div class="page-tag">09</div>
+      <section class="slide"><div class="page-tag">08</div>
         <div class="content">
           <div class="eyebrow">한글 텍스트</div>
           <h2>한글은 영상 안에서 만들지 않는 편이 가장 안전합니다</h2>
@@ -302,8 +295,7 @@
         </div><div class="footer"><span>한글 텍스트</span><div class="progress"><span></span></div></div>
       </section>
 
-      <section class="slide">
-        <div class="brand"><span class="brand-mark"></span>Carat × POSCO</div><div class="page-tag">10</div>
+      <section class="slide"><div class="page-tag">09</div>
         <div class="content">
           <div class="eyebrow">기준 이미지</div>
           <h2>같은 인물·동물·캐릭터가 여러 번 나오면 기준 이미지가 먼저 필요합니다</h2>
@@ -322,16 +314,14 @@
         </div><div class="footer"><span>기준 이미지</span><div class="progress"><span></span></div></div>
       </section>
 
-      <section class="slide section">
-        <div class="brand"><span class="brand-mark"></span>Carat × POSCO</div><div class="page-tag">SECTION 4</div>
+      <section class="slide section"><div class="page-tag">SECTION 3</div>
         <div class="content">
-          <div class="eyebrow">4. 유즈케이스별 피드백</div>
+          <div class="eyebrow">3. 유즈케이스별 피드백</div>
           <h1>이제 각 사례별로<br/>추가 팁을 정리합니다</h1>
         </div><div class="footer"><span>유즈케이스별 피드백</span><div class="progress"><span></span></div></div>
       </section>
 
-      <section class="slide">
-        <div class="brand"><span class="brand-mark"></span>Carat × POSCO</div><div class="page-tag">11</div>
+      <section class="slide"><div class="page-tag">10</div>
         <div class="content">
           <div class="eyebrow">유즈케이스 1</div>
           <h2>나고양씨의 운수 좋은 날<br/>말하는 동물은 표정과 자막으로 살립니다</h2>
@@ -342,8 +332,7 @@
         </div><div class="footer"><span>나고양씨</span><div class="progress"><span></span></div></div>
       </section>
 
-      <section class="slide">
-        <div class="brand"><span class="brand-mark"></span>Carat × POSCO</div><div class="page-tag">12</div>
+      <section class="slide"><div class="page-tag">11</div>
         <div class="content">
           <div class="eyebrow">유즈케이스 2</div>
           <h2>포석호 캐릭터 활용<br/>먼저 캐릭터 기준표를 만들어야 합니다</h2>
@@ -355,8 +344,7 @@
         </div><div class="footer"><span>포석호 캐릭터</span><div class="progress"><span></span></div></div>
       </section>
 
-      <section class="slide">
-        <div class="brand"><span class="brand-mark"></span>Carat × POSCO</div><div class="page-tag">13</div>
+      <section class="slide"><div class="page-tag">12</div>
         <div class="content">
           <div class="eyebrow">유즈케이스 3</div>
           <h2>실사 콘텐츠 / 나눔의집<br/>현실 디테일이 맞아야 자연스럽습니다</h2>
@@ -367,8 +355,7 @@
         </div><div class="footer"><span>실사 콘텐츠</span><div class="progress"><span></span></div></div>
       </section>
 
-      <section class="slide">
-        <div class="brand"><span class="brand-mark"></span>Carat × POSCO</div><div class="page-tag">14</div>
+      <section class="slide"><div class="page-tag">13</div>
         <div class="content">
           <div class="eyebrow">나눔의집 핵심 메시지</div>
           <h2>나눔의집 영상은 ‘무료급식’보다<br/>‘안부를 나누는 장면’이 중요합니다</h2>
@@ -381,8 +368,7 @@
         </div><div class="footer"><span>나눔의집 메시지</span><div class="progress"><span></span></div></div>
       </section>
 
-      <section class="slide">
-        <div class="brand"><span class="brand-mark"></span>Carat × POSCO</div><div class="page-tag">15</div>
+      <section class="slide"><div class="page-tag">14</div>
         <div class="content">
           <div class="eyebrow">유즈케이스 4</div>
           <h2>음악 제작 / 포스코 주제가<br/>참고곡은 ‘분위기만’ 참고해야 합니다</h2>
@@ -394,8 +380,7 @@
         </div><div class="footer"><span>음악 제작</span><div class="progress"><span></span></div></div>
       </section>
 
-      <section class="slide">
-        <div class="brand"><span class="brand-mark"></span>Carat × POSCO</div><div class="page-tag">16</div>
+      <section class="slide"><div class="page-tag">15</div>
         <div class="content">
           <div class="eyebrow">음악을 잘 만들기 위해 지정할 것</div>
           <h2>음악은 ‘장르’만 말하면 부족합니다</h2>
@@ -409,8 +394,7 @@
         </div><div class="footer"><span>음악 프롬프트</span><div class="progress"><span></span></div></div>
       </section>
 
-      <section class="slide">
-        <div class="brand"><span class="brand-mark"></span>Carat × POSCO</div><div class="page-tag">17</div>
+      <section class="slide"><div class="page-tag">16</div>
         <div class="content">
           <div class="eyebrow">음악 생성 입력값</div>
           <h2>실제로 넣는 값은 단순합니다</h2>
@@ -423,16 +407,14 @@
         </div><div class="footer"><span>음악 입력값</span><div class="progress"><span></span></div></div>
       </section>
 
-      <section class="slide section">
-        <div class="brand"><span class="brand-mark"></span>Carat × POSCO</div><div class="page-tag">WRAP-UP</div>
+      <section class="slide section"><div class="page-tag">WRAP-UP</div>
         <div class="content">
           <div class="eyebrow">마무리</div>
           <h1>다음 제작 전에는<br/>이것만 먼저 확인하면 됩니다</h1>
         </div><div class="footer"><span>체크리스트</span><div class="progress"><span></span></div></div>
       </section>
 
-      <section class="slide">
-        <div class="brand"><span class="brand-mark"></span>Carat × POSCO</div><div class="page-tag">18</div>
+      <section class="slide"><div class="page-tag">17</div>
         <div class="content">
           <div class="eyebrow">제작 전 체크리스트</div>
           <h2>시작 전에 정하면 좋은 것</h2>
@@ -443,8 +425,7 @@
         </div><div class="footer"><span>제작 전 체크리스트</span><div class="progress"><span></span></div></div>
       </section>
 
-      <section class="slide">
-        <div class="brand"><span class="brand-mark"></span>Carat × POSCO</div><div class="page-tag">19</div>
+      <section class="slide"><div class="page-tag">18</div>
         <div class="content">
           <div class="eyebrow">합본 전 체크리스트</div>
           <h2>완성본이라고 말하기 전에는<br/>처음부터 끝까지 다시 봐야 합니다</h2>
@@ -455,8 +436,7 @@
         </div><div class="footer"><span>합본 전 체크리스트</span><div class="progress"><span></span></div></div>
       </section>
 
-      <section class="slide section kicker">
-        <div class="brand"><span class="brand-mark"></span>Carat × POSCO</div><div class="page-tag">END</div>
+      <section class="slide section kicker"><div class="page-tag">END</div>
         <div class="content">
           <div class="eyebrow">마지막 정리</div>
           <h1>핵심은<br/>작게 나눠 만들고,<br/>마지막에 붙이는 것입니다</h1>
