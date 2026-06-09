@@ -3,492 +3,148 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>AI 영상·음악 제작 피드백 세션 | POSCO × Carat</title>
+  <title>AI 제작 피드백 세션</title>
   <style>
     :root{
-      --bg:#f4f8fb;
-      --ink:#102033;
-      --muted:#58708a;
-      --soft:#d9e7f2;
-      --line:#c7d9e8;
-      --blue:#0b67b2;
-      --blue2:#007aff;
-      --navy:#173b63;
-      --green:#35a67b;
-      --amber:#f5a524;
-      --red:#d65a5a;
-      --white:#ffffff;
-      --shadow:0 24px 70px rgba(20,55,90,.16);
-      --radius:34px;
+      --bg:#f4f8fb; --ink:#102033; --muted:#58708a; --line:#c7d9e8;
+      --blue:#0b67b2; --blue2:#007aff; --navy:#173b63; --green:#35a67b;
+      --amber:#f5a524; --white:#fff; --shadow:0 24px 70px rgba(20,55,90,.16);
     }
     *{box-sizing:border-box}
     html,body{height:100%;margin:0;overflow:hidden;background:linear-gradient(135deg,#eef6fc 0%,#f8fbfd 48%,#eaf4fb 100%);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Apple SD Gothic Neo","Noto Sans KR",Pretendard,Arial,sans-serif;}
-    body{display:block;}
     .deck-shell{position:fixed;inset:0;width:100vw;height:100vh;overflow:hidden;}
     .stage{width:1920px;height:1080px;position:absolute;left:50%;top:50%;transform-origin:center center;background:var(--bg);box-shadow:var(--shadow);overflow:hidden;}
-    .slide{position:absolute;inset:0;padding:86px 104px;display:none;overflow:hidden;background:
-      radial-gradient(circle at 84% 12%, rgba(0,122,255,.12), transparent 28%),
-      radial-gradient(circle at 7% 88%, rgba(53,166,123,.10), transparent 30%),
-      linear-gradient(135deg,#ffffff 0%,#f4f9fd 52%,#eef7fc 100%);
-    }
+    .slide{position:absolute;inset:0;padding:86px 104px;display:none;overflow:hidden;background:radial-gradient(circle at 84% 12%, rgba(0,122,255,.12), transparent 28%),radial-gradient(circle at 7% 88%, rgba(53,166,123,.10), transparent 30%),linear-gradient(135deg,#ffffff 0%,#f4f9fd 52%,#eef7fc 100%);}
     .slide.active{display:block;}
     .slide::before{content:"";position:absolute;inset:28px;border:1px solid rgba(11,103,178,.16);border-radius:34px;pointer-events:none;}
-    .slide.kicker::after,.slide.section::after{content:"";position:absolute;right:-180px;bottom:-220px;width:680px;height:680px;border-radius:50%;background:linear-gradient(135deg,rgba(0,122,255,.18),rgba(53,166,123,.10));filter:blur(2px);}
-    .brand{position:absolute;top:54px;left:104px;display:flex;align-items:center;gap:14px;color:var(--blue);font-weight:800;letter-spacing:.02em;font-size:22px;z-index:3;}
-    .brand-mark{width:20px;height:20px;border-radius:50%;background:linear-gradient(135deg,var(--blue2),var(--green));box-shadow:0 0 0 8px rgba(0,122,255,.09)}
-    .page-tag{position:absolute;top:54px;right:104px;color:var(--muted);font-size:20px;font-weight:700;z-index:3;}
+    .section::after,.cover::after{content:"";position:absolute;right:-180px;bottom:-220px;width:680px;height:680px;border-radius:50%;background:linear-gradient(135deg,rgba(0,122,255,.18),rgba(53,166,123,.10));filter:blur(2px);}
+    .page-tag{position:absolute;top:54px;right:104px;color:var(--muted);font-size:20px;font-weight:800;z-index:3;}
     .content{position:relative;z-index:2;height:100%;display:flex;flex-direction:column;}
+    .cover .content,.section .content{justify-content:center;}
     h1,h2,h3,p{margin:0;text-wrap:pretty;}
-    h1{font-size:82px;line-height:1.06;letter-spacing:-.055em;color:#0c2742;font-weight:860;max-width:1320px;}
-    h2{font-size:64px;line-height:1.12;letter-spacing:-.045em;color:#0c2742;font-weight:840;max-width:1450px;}
-    h3{font-size:34px;line-height:1.25;letter-spacing:-.025em;color:var(--navy);font-weight:820;}
-    .eyebrow{font-size:24px;line-height:1.3;color:var(--blue);font-weight:850;margin-bottom:24px;letter-spacing:-.01em;}
-    .subtitle{font-size:32px;line-height:1.45;color:var(--muted);font-weight:550;max-width:1200px;margin-top:28px;}
-    .big-note{margin-top:48px;border-left:8px solid var(--blue2);padding:26px 34px;border-radius:0 22px 22px 0;background:rgba(255,255,255,.68);font-size:34px;line-height:1.38;font-weight:760;color:#15304c;max-width:1300px;}
-    .grid{display:grid;gap:24px;}
-    .grid.cols-2{grid-template-columns:1fr 1fr;}
-    .grid.cols-3{grid-template-columns:repeat(3,1fr);}
-    .grid.cols-4{grid-template-columns:repeat(4,1fr);}
-    .card{background:rgba(255,255,255,.78);border:1px solid rgba(11,103,178,.15);border-radius:28px;padding:30px 32px;box-shadow:0 18px 50px rgba(23,59,99,.08);}
-    .card.tight{padding:24px 26px;border-radius:24px;}
-    .card h3{margin-bottom:14px;}
-    .card p,.card li{font-size:27px;line-height:1.38;color:#29465f;font-weight:560;}
-    ul{margin:0;padding-left:1.15em;}
-    li{margin:.28em 0;}
-    .pill-row{display:flex;flex-wrap:wrap;gap:14px;margin-top:28px;}
-    .pill{display:inline-flex;align-items:center;padding:12px 18px;border-radius:999px;background:#e8f3fb;border:1px solid #c7ddec;color:#17456d;font-size:24px;font-weight:760;}
-    .table{width:100%;border-collapse:separate;border-spacing:0 14px;margin-top:30px;}
-    .table th{font-size:22px;color:var(--blue);text-align:left;padding:0 22px 4px;font-weight:850;}
-    .table td{background:rgba(255,255,255,.82);font-size:25px;line-height:1.34;color:#26445f;font-weight:560;padding:22px;border-top:1px solid rgba(11,103,178,.13);border-bottom:1px solid rgba(11,103,178,.13);vertical-align:top;}
-    .table td:first-child{border-left:1px solid rgba(11,103,178,.13);border-radius:22px 0 0 22px;font-weight:820;color:#12395f;}
-    .table td:last-child{border-right:1px solid rgba(11,103,178,.13);border-radius:0 22px 22px 0;}
-    .simple-table td{font-size:27px;}
-    .number-list{counter-reset:item;display:grid;gap:18px;margin-top:38px;max-width:1320px;}
-    .number-item{counter-increment:item;display:grid;grid-template-columns:64px 1fr;gap:18px;align-items:start;background:rgba(255,255,255,.76);border:1px solid rgba(11,103,178,.13);border-radius:24px;padding:22px 28px;}
-    .number-item::before{content:counter(item);display:grid;place-items:center;width:48px;height:48px;border-radius:16px;background:linear-gradient(135deg,var(--blue2),#2bbf93);color:white;font-size:24px;font-weight:900;}
-    .number-item strong{font-size:29px;color:#102f4e;}
-    .number-item span{display:block;font-size:25px;line-height:1.38;color:#4a657c;margin-top:6px;}
-    .quote{font-size:46px;line-height:1.28;color:#0c2742;font-weight:820;letter-spacing:-.035em;background:rgba(255,255,255,.76);border-radius:34px;padding:42px 48px;border:1px solid rgba(11,103,178,.16);box-shadow:0 20px 60px rgba(23,59,99,.08);}
-    .small{font-size:22px!important;line-height:1.35!important;color:#60798f!important;}
-    .two-pane{display:grid;grid-template-columns:1.02fr .98fr;gap:42px;align-items:stretch;margin-top:44px;}
-    .label{font-size:20px;color:var(--blue);font-weight:900;letter-spacing:.02em;text-transform:uppercase;margin-bottom:12px;}
-    .accent{color:var(--blue2)}
-    .green{color:var(--green)}
-    .warn{color:#bc6b00}
-    .red{color:var(--red)}
+    h1{font-size:92px;line-height:1.06;letter-spacing:-.055em;color:#0c2742;font-weight:860;max-width:1320px;}
+    h2{font-size:62px;line-height:1.12;letter-spacing:-.045em;color:#0c2742;font-weight:840;max-width:1450px;}
+    h3{font-size:31px;line-height:1.25;letter-spacing:-.025em;color:var(--navy);font-weight:840;}
+    .eyebrow{font-size:24px;line-height:1.3;color:var(--blue);font-weight:900;margin-bottom:24px;letter-spacing:-.01em;}
+    .subtitle{font-size:32px;line-height:1.45;color:var(--muted);font-weight:550;max-width:1180px;margin-top:28px;}
     .footer{position:absolute;left:104px;right:104px;bottom:46px;display:flex;justify-content:space-between;align-items:center;color:#7890a6;font-size:18px;font-weight:700;z-index:4;}
-    .progress{height:6px;width:360px;border-radius:99px;background:#d8e6f0;overflow:hidden;}
-    .progress span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--blue2),var(--green));border-radius:inherit;transition:width .2s ease;}
+    .progress{height:6px;width:360px;border-radius:99px;background:#d8e6f0;overflow:hidden;}.progress span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--blue2),var(--green));border-radius:inherit;transition:width .2s ease;}
     .nav{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);display:flex;gap:12px;align-items:center;background:rgba(255,255,255,.82);backdrop-filter:blur(16px);border:1px solid rgba(11,103,178,.18);border-radius:999px;padding:10px 14px;box-shadow:0 16px 48px rgba(20,55,90,.16);z-index:20;}
-    .nav button{appearance:none;border:0;background:#e8f3fb;color:#163e63;border-radius:999px;padding:12px 18px;font-weight:850;font-size:15px;cursor:pointer;min-width:44px;}
-    .nav button:hover{background:#d9ecfa;}
-    .nav .count{font-weight:900;color:#173b63;font-size:15px;min-width:74px;text-align:center;}
-    .section .content{justify-content:center;}
-    .section h1{font-size:92px;max-width:1450px;}
-    .section .subtitle{font-size:36px;max-width:980px;}
-    .cover .content{justify-content:center;padding-top:40px;}
-    .cover h1{font-size:96px;max-width:1380px;}
-    .cover .subtitle{max-width:1050px;}
-    .cover-meta{display:flex;gap:16px;margin-top:54px;}
-    .cover-meta .pill{font-size:22px;padding:13px 20px;background:rgba(255,255,255,.72);}
-    .mini-title{font-size:28px;font-weight:880;color:#0c2742;margin-bottom:14px;}
-    .callout{background:linear-gradient(135deg,#0b67b2,#007aff);color:white;border-radius:30px;padding:34px 40px;box-shadow:0 24px 70px rgba(0,122,255,.18);}
-    .callout h3{color:white;font-size:34px;margin-bottom:12px;}
-    .callout p,.callout li{color:#eaf6ff;font-size:27px;line-height:1.38;}
-    .workflow{display:grid;grid-template-columns:repeat(5,1fr);gap:16px;margin-top:42px;}
-    .step{background:rgba(255,255,255,.78);border:1px solid rgba(11,103,178,.15);border-radius:26px;padding:26px 22px;min-height:190px;position:relative;}
-    .step b{display:block;font-size:22px;color:var(--blue);margin-bottom:14px;}
-    .step strong{display:block;font-size:28px;color:#133657;line-height:1.2;}
-    .step span{display:block;font-size:21px;color:#60798f;line-height:1.3;margin-top:12px;}
-    .checklist{display:grid;grid-template-columns:1fr 1fr;gap:26px;margin-top:38px;}
-    .checklist .card li{list-style:none;position:relative;padding-left:36px;font-size:25px;}
-    .checklist .card li::before{content:"✓";position:absolute;left:0;top:0;color:var(--green);font-weight:900;}
-    .code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;background:#102033;color:#eaf6ff;border-radius:26px;padding:26px 30px;font-size:23px;line-height:1.45;white-space:pre-wrap;box-shadow:0 18px 50px rgba(16,32,51,.16);}
-    .slide-index{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-top:38px;}
-    .index-item{background:rgba(255,255,255,.74);border:1px solid rgba(11,103,178,.13);border-radius:22px;padding:20px 24px;font-size:25px;font-weight:760;color:#1f4362;}
-    .index-item span{color:var(--blue);font-weight:900;margin-right:12px;}
-
-    .mail-table{width:100%;border-collapse:separate;border-spacing:0 10px;margin-top:28px;}
-    .mail-table th{font-size:20px;color:var(--blue);text-align:left;padding:0 18px 2px;font-weight:900;}
-    .mail-table td{background:rgba(255,255,255,.84);font-size:22px;line-height:1.3;color:#24445f;font-weight:620;padding:16px 18px;border-top:1px solid rgba(11,103,178,.12);border-bottom:1px solid rgba(11,103,178,.12);vertical-align:top;}
-    .mail-table td:first-child{border-left:1px solid rgba(11,103,178,.12);border-radius:18px 0 0 18px;font-weight:820;color:#12395f;width:84px;text-align:center;}
-    .mail-table td:last-child{border-right:1px solid rgba(11,103,178,.12);border-radius:0 18px 18px 0;}
-    .mail-table.causes{border-spacing:0 7px;margin-top:22px;}
-    .mail-table.causes td{font-size:20px;line-height:1.24;padding:11px 18px;}
-    .mail-table.causes td:nth-child(2){width:46%;}
-    .mail-table.causes td:nth-child(3){font-weight:760;color:#193a59;}
-    .mark-knowledge{background:#fff3bf!important;border-color:#f5d76e!important;box-shadow:inset 0 0 0 9999px rgba(255,243,191,.35);}
-    .mark-chip{display:inline-block;margin-left:10px;padding:4px 10px;border-radius:999px;background:#fff0a8;color:#8a6400;font-size:16px;font-weight:900;vertical-align:middle;}
-    .source-note{margin-top:18px;color:#7890a6;font-size:18px;font-weight:750;}
-
-    @media print{
-      html,body{overflow:visible;background:white;display:block;}
-      .deck-shell{display:block;width:auto;height:auto;}
-      .stage{transform:none!important;width:1920px;height:auto;box-shadow:none;overflow:visible;}
-      .slide{position:relative;display:block!important;width:1920px;height:1080px;page-break-after:always;}
-      .nav{display:none;}
-    }
+    .nav button{appearance:none;border:0;background:#e8f3fb;color:#163e63;border-radius:999px;padding:12px 18px;font-weight:850;font-size:15px;cursor:pointer;min-width:44px;}.nav .count{font-weight:900;color:#173b63;font-size:15px;min-width:74px;text-align:center;}
+    .table{width:100%;border-collapse:separate;border-spacing:0 12px;margin-top:30px;}
+    .table th{font-size:20px;color:var(--blue);text-align:left;padding:0 16px 4px;font-weight:900;}
+    .table td{background:rgba(255,255,255,.86);font-size:23px;line-height:1.3;color:#24445f;font-weight:600;padding:18px 18px;border-top:1px solid rgba(11,103,178,.13);border-bottom:1px solid rgba(11,103,178,.13);vertical-align:top;}
+    .table td:first-child{border-left:1px solid rgba(11,103,178,.13);border-radius:20px 0 0 20px;font-weight:900;color:#12395f;width:120px;}
+    .table td:last-child{border-right:1px solid rgba(11,103,178,.13);border-radius:0 20px 20px 0;}
+    .compact{border-spacing:0 8px;margin-top:24px;}.compact td{font-size:20px;line-height:1.24;padding:12px 14px;}.compact th{font-size:19px;}
+    .compact td:nth-child(2){width:29%;}.compact td:nth-child(3){width:25%;}.compact td:nth-child(4){width:34%;font-weight:760;color:#173b63;}
+    .tag{display:inline-flex;align-items:center;padding:8px 13px;border-radius:999px;background:#e8f3fb;border:1px solid #c7ddec;color:#17456d;font-size:18px;font-weight:900;margin-right:8px;white-space:nowrap;}
+    .mark{background:#fff3bf!important;box-shadow:inset 0 0 0 9999px rgba(255,243,191,.3);}
+    .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;margin-top:46px;}.card{background:rgba(255,255,255,.8);border:1px solid rgba(11,103,178,.15);border-radius:28px;padding:30px 30px;box-shadow:0 18px 50px rgba(23,59,99,.08);}.card p{font-size:26px;line-height:1.34;color:#29465f;font-weight:600;margin-top:12px;}
+    @media print{html,body{overflow:visible;background:white;display:block}.deck-shell{display:block;width:auto;height:auto}.stage{transform:none!important;width:1920px;height:auto;box-shadow:none;overflow:visible}.slide{position:relative;display:block!important;width:1920px;height:1080px;page-break-after:always}.nav{display:none}}
   </style>
 </head>
 <body>
-  <div class="deck-shell">
-    <main class="stage" id="stage" aria-live="polite">
+  <div class="deck-shell"><main class="stage" id="stage" aria-live="polite">
 
-      <section class="slide cover active kicker" data-title="cover">
-        <div class="page-tag">대면 피드백 세션 초안</div>
-        <div class="content">
-          <div class="eyebrow">AI 영상·음악 제작 피드백</div>
-          <h1>어디서 막혔는지,<br/>다음엔 어떻게 만들면 쉬운지</h1>
-          <p class="subtitle">말하는 동물, 캐릭터, 실사 영상, 음악 제작 사례를 기준으로 문제와 해결 방법을 쉽게 정리합니다.</p>
-          <div class="cover-meta">
-            <span class="pill">나고양씨의 운수 좋은 날</span>
-            <span class="pill">포석호 캐릭터</span>
-            <span class="pill">나눔의집 실사 콘텐츠</span>
-            <span class="pill">포스코 주제가</span>
-          </div>
+    <section class="slide cover active">
+      <div class="page-tag">대면 피드백 세션</div>
+      <div class="content">
+        <div class="eyebrow">AI 영상·음악 제작 피드백</div>
+        <h1>문제, 원인,<br/>솔루션만 짧게</h1>
+        <p class="subtitle">나고양, 포석호, 음악 제작 사례를 기준으로 고객 질문과 확인된 문제를 한 번에 정리합니다.</p>
+      </div><div class="footer"><span>← → 또는 Space로 이동</span><div class="progress"><span></span></div></div>
+    </section>
+
+    <section class="slide">
+      <div class="page-tag">01</div>
+      <div class="content">
+        <div class="eyebrow">문제 리스트</div>
+        <h2>유즈케이스별로 막힌 지점만 먼저 봅니다</h2>
+        <table class="table compact">
+          <tr><th>No.</th><th>유즈케이스</th><th>문제</th><th>핵심 답변</th></tr>
+          <tr><td>1</td><td><span class="tag">나고양</span></td><td>부분 수정</td><td>영상은 부분 수정 불가, 새로 생성</td></tr>
+          <tr><td>2</td><td><span class="tag">나고양</span></td><td>단순 편집</td><td>캐럿 1.0에서 가능</td></tr>
+          <tr><td>3</td><td><span class="tag">나고양</span></td><td>음성 일관성</td><td>R2V 생성 시 음성 레퍼런스 활용</td></tr>
+          <tr><td>4</td><td><span class="tag">나고양</span></td><td>캐릭터시트·R2V 미사용</td><td>영상 생성방식 이해: R2V vs I2V</td></tr>
+          <tr><td>5</td><td><span class="tag">포석호</span></td><td>캐릭터시트 생성</td><td>좋은 레퍼런스 필요</td></tr>
+          <tr><td>6</td><td><span class="tag">음악</span></td><td>음악 제작 팁</td><td>레퍼런스 + parameter 확인</td></tr>
+          <tr><td>7</td><td><span class="tag">음악</span></td><td>효과음 팁</td><td>네이티브 오디오 활용</td></tr>
+        </table>
+      </div><div class="footer"><span>문제 리스트</span><div class="progress"><span></span></div></div>
+    </section>
+
+    <section class="slide">
+      <div class="page-tag">02</div>
+      <div class="content">
+        <div class="eyebrow">문제 + 원인</div>
+        <h2>문제는 기능 한계와 입력 방식에서 나뉩니다</h2>
+        <table class="table compact">
+          <tr><th>No.</th><th>문제</th><th>원인</th><th>요약</th></tr>
+          <tr><td>1</td><td>영상을 살짝 수정하고 싶은데 안 됨</td><td>AI 영상은 부분 편집이 아니라 재생성 방식</td><td>부분 수정 한계</td></tr>
+          <tr><td>2</td><td>단순 편집을 캐럿에서 할 수 있는지</td><td>생성 기능과 편집 기능을 구분해야 함</td><td>편집 기능 확인</td></tr>
+          <tr><td>3</td><td>음성 일관성 유지가 안 됨</td><td>컷마다 새로 생성하면 음성이 흔들림</td><td>음성 레퍼런스 필요</td></tr>
+          <tr><td>4</td><td>캐릭터시트·R2V를 사용하지 않음</td><td>캐스팅 이미지만으로는 영상 일관성 부족</td><td>생성방식 이해 필요</td></tr>
+          <tr><td>5</td><td>캐릭터시트 생성이 잘 안 됨</td><td>레퍼런스가 인스타그램 링크 중심</td><td>레퍼런스 품질 부족</td></tr>
+          <tr><td>6</td><td>음악 만드는 팁이 있는지</td><td>원하는 음악 요소를 분리해 줘야 함</td><td>parameter 확인 필요</td></tr>
+          <tr><td>7</td><td>효과음 팁이 있는지</td><td>효과음은 장면과 같이 생성될 때 자연스러움</td><td>네이티브 오디오</td></tr>
+        </table>
+      </div><div class="footer"><span>문제와 원인</span><div class="progress"><span></span></div></div>
+    </section>
+
+    <section class="slide">
+      <div class="page-tag">03</div>
+      <div class="content">
+        <div class="eyebrow">문제 + 원인 + 솔루션</div>
+        <h2>답변은 짧게, 바로 실행 가능한 방향으로 정리합니다</h2>
+        <table class="table compact">
+          <tr><th>No.</th><th>문제</th><th>원인</th><th>솔루션</th></tr>
+          <tr><td>1</td><td>부분 수정</td><td>AI 영상 한계</td><td>영상은 부분 수정 불가. 필요한 구간은 새로 생성</td></tr>
+          <tr><td>2</td><td>단순 편집</td><td>편집 기능 문의</td><td>캐럿 1.0에서 가능</td></tr>
+          <tr><td>3</td><td>음성 일관성</td><td>컷별 음성 흔들림</td><td>R2V 생성 시 음성을 레퍼런스로 넣기</td></tr>
+          <tr><td>4</td><td>캐릭터시트·R2V 미사용</td><td>생성방식 이해 부족</td><td>R2V vs I2V 안내. 자연스러움은 R2V, 정확한 비주얼은 I2V</td></tr>
+          <tr><td>5</td><td>캐릭터시트 생성</td><td>인스타 링크만 입력</td><td>좋은 이미지 레퍼런스 제공</td></tr>
+          <tr><td>6</td><td>음악 제작</td><td>입력값이 모호함</td><td>레퍼런스를 잘 주고, AI에게 parameter 물어보기</td></tr>
+          <tr><td>7</td><td>효과음</td><td>장면 맥락 필요</td><td>효과음은 네이티브 오디오로 해결</td></tr>
+        </table>
+      </div><div class="footer"><span>솔루션 요약</span><div class="progress"><span></span></div></div>
+    </section>
+
+    <section class="slide">
+      <div class="page-tag">04</div>
+      <div class="content">
+        <div class="eyebrow">사전지식</div>
+        <h2>설명할 내용은 네 가지만 남깁니다</h2>
+        <div class="grid">
+          <div class="card"><h3>부분 수정</h3><p>AI 영상은 원하는 부분만 고치는 방식보다 새로 생성하는 방식에 가깝습니다.</p></div>
+          <div class="card"><h3>R2V / I2V</h3><p>자연스러운 움직임은 R2V, 정확한 비주얼 구현은 I2V를 우선합니다.</p></div>
+          <div class="card"><h3>레퍼런스</h3><p>링크보다 명확한 이미지, 캐릭터시트, 음성 파일이 결과를 안정화합니다.</p></div>
+          <div class="card"><h3>네이티브 오디오</h3><p>효과음은 영상 생성 단계에서 함께 만들 때 장면과 잘 붙습니다.</p></div>
         </div>
-        <div class="footer"><span>← → 또는 Space로 이동</span><div class="progress"><span></span></div></div>
-      </section>
+      </div><div class="footer"><span>핵심 사전지식</span><div class="progress"><span></span></div></div>
+    </section>
 
-      <section class="slide"><div class="page-tag">01</div>
-        <div class="content">
-          <div class="eyebrow">오늘 이야기할 내용</div>
-          <h2>결과물을 평가하기보다,<br/>다음 제작이 쉬워지는 방법을 정리합니다</h2>
-          <div class="slide-index">
-            <div class="index-item"><span>1</span>어떤 문제가 있었는지 정리</div>
-            <div class="index-item"><span>2</span>그 문제가 왜 생겼는지 짧게 설명</div>
-            <div class="index-item"><span>3</span>공통적으로 알아두면 좋은 제작 방법</div>
-            <div class="index-item"><span>4</span>유즈케이스별 추가 팁</div>
-          </div>
-          <div class="big-note">핵심은 “AI에게 한 번에 다 맡기기”보다 <span class="accent">장면, 목소리, 자막, 음악을 나눠서 만드는 것</span>입니다.</div>
-        </div><div class="footer"><span>AI 영상·음악 제작 피드백</span><div class="progress"><span></span></div></div>
-      </section>
+    <section class="slide section">
+      <div class="page-tag">END</div>
+      <div class="content">
+        <div class="eyebrow">마무리</div>
+        <h1>문제는 7개,<br/>답변은 4개 축</h1>
+        <p class="subtitle">부분 수정 한계, 편집 가능 범위, R2V/I2V, 레퍼런스와 네이티브 오디오만 설명하면 충분합니다.</p>
+      </div><div class="footer"><span>감사합니다</span><div class="progress"><span></span></div></div>
+    </section>
 
-      <section class="slide section"><div class="page-tag">SECTION 1</div>
-        <div class="content">
-          <div class="eyebrow">1. 발생한 문제 정리</div>
-          <h1>먼저, 어디서 막혔는지<br/>유형별로 나눠보겠습니다</h1>
-          <p class="subtitle">문제를 알아야 다음 제작 때 어떤 부분을 따로 챙겨야 하는지 명확해집니다.</p>
-        </div><div class="footer"><span>문제 정리</span><div class="progress"><span></span></div></div>
-      </section>
-
-      <section class="slide"><div class="page-tag">02</div>
-        <div class="content">
-          <div class="eyebrow">고객사 메일 워딩</div>
-          <h2>메일 원문</h2>
-          <table class="mail-table">
-            <tr><th>No.</th><th>고객사 워딩 그대로</th></tr>
-            <tr><td>1</td><td>일단 제가 너무 모든 것을 시키다보니 토큰소모량이 너무 빠르고 정확성이 낮아지는 것 같습니다.</td></tr>
-            <tr><td>2</td><td>효율적으로 할 수 있는 지시 방안을 안내해주시면 감사하겠습니다..!</td></tr>
-            <tr><td>3</td><td>5초씩 생성한 영상을 붙이는 과정에서 음성이 탈락되거나, 중복으로 발생하는 일도 많고</td></tr>
-            <tr><td>4</td><td>5초 내에서도 앞부분이 더 길어야 하는데 다른 부분을 임의로 길게 만들고, 조정을 요청하면 동일한 컷이 반복되거나 잘려버리더라구요.</td></tr>
-            <tr><td>5</td><td>추후 합본 제작시 잘못된 버전을 붙이는 경우도 많아서 계속 수정을 지시하게 됩니다.</td></tr>
-            <tr><td>6</td><td>일관성 있는 인물 생성으로 스토리 영상을 제작</td></tr>
-            <tr><td>7</td><td>사운드 생성(음성, 나래이션)의 정확도와 일관성 (첫번째 5초와 마지막 5초의 성우를 동일한 목소리를 쓰길 희망)</td></tr>
-            <tr><td>8</td><td>제작하면서 점점 영상 톤이 변경되는 점 보완</td></tr>
-            <tr><td>9</td><td>모든 영상의 한글 컨트롤이 쉽지 않을 것 같은데 처음부터 최대한 배제하고 생성하는 법</td></tr>
-          </table>
-        </div><div class="footer"><span>고객사 메일 워딩</span><div class="progress"><span></span></div></div>
-      </section>
-
-      <section class="slide"><div class="page-tag">03</div>
-        <div class="content">
-          <div class="eyebrow">워딩 + 원인</div>
-          <h2>메일 원문 / 원인</h2>
-          <table class="mail-table causes">
-            <tr><th>No.</th><th>고객사 워딩 그대로</th><th>원인</th></tr>
-            <tr><td>1</td><td>일단 제가 너무 모든 것을 시키다보니 토큰소모량이 너무 빠르고 정확성이 낮아지는 것 같습니다.</td><td>요청 범위 과다</td></tr>
-            <tr><td>2</td><td>효율적으로 할 수 있는 지시 방안을 안내해주시면 감사하겠습니다..!</td><td>제작 순서 부재</td></tr>
-            <tr><td>3</td><td>5초씩 생성한 영상을 붙이는 과정에서 음성이 탈락되거나, 중복으로 발생하는 일도 많고</td><td>영상·오디오 합본 분리 필요</td></tr>
-            <tr><td>4</td><td>5초 내에서도 앞부분이 더 길어야 하는데 다른 부분을 임의로 길게 만들고, 조정을 요청하면 동일한 컷이 반복되거나 잘려버리더라구요.</td><td>짧은 컷 길이·편집점 한계</td></tr>
-            <tr><td>5</td><td>추후 합본 제작시 잘못된 버전을 붙이는 경우도 많아서 계속 수정을 지시하게 됩니다.</td><td>버전·컷 관리 필요</td></tr>
-            <tr><td>6</td><td>일관성 있는 인물 생성으로 스토리 영상을 제작</td><td>기준 이미지 / R2V 필요</td></tr>
-            <tr><td>7</td><td>사운드 생성(음성, 나래이션)의 정확도와 일관성 (첫번째 5초와 마지막 5초의 성우를 동일한 목소리를 쓰길 희망)</td><td>내레이션·BGM 분리 필요</td></tr>
-            <tr><td>8</td><td>제작하면서 점점 영상 톤이 변경되는 점 보완</td><td>키비주얼·톤 고정 필요</td></tr>
-            <tr><td>9</td><td>모든 영상의 한글 컨트롤이 쉽지 않을 것 같은데 처음부터 최대한 배제하고 생성하는 법</td><td>한글 생성 한계</td></tr>
-          </table>
-        </div><div class="footer"><span>고객사 워딩과 원인</span><div class="progress"><span></span></div></div>
-      </section>
-
-      <section class="slide"><div class="page-tag">04</div>
-        <div class="content">
-          <div class="eyebrow">사전지식 표시</div>
-          <h2>원인 / 사전지식</h2>
-          <table class="mail-table causes">
-            <tr><th>No.</th><th>고객사 워딩 그대로</th><th>원인</th></tr>
-            <tr><td>1</td><td>일단 제가 너무 모든 것을 시키다보니 토큰소모량이 너무 빠르고 정확성이 낮아지는 것 같습니다.</td><td class="mark-knowledge">요청 범위 과다 <span class="mark-chip">작게 나누기</span></td></tr>
-            <tr><td>2</td><td>효율적으로 할 수 있는 지시 방안을 안내해주시면 감사하겠습니다..!</td><td class="mark-knowledge">제작 순서 부재 <span class="mark-chip">제작 흐름</span></td></tr>
-            <tr><td>3</td><td>5초씩 생성한 영상을 붙이는 과정에서 음성이 탈락되거나, 중복으로 발생하는 일도 많고</td><td class="mark-knowledge">영상·오디오 합본 분리 필요 <span class="mark-chip">오디오 분리</span></td></tr>
-            <tr><td>4</td><td>5초 내에서도 앞부분이 더 길어야 하는데 다른 부분을 임의로 길게 만들고, 조정을 요청하면 동일한 컷이 반복되거나 잘려버리더라구요.</td><td class="mark-knowledge">짧은 컷 길이·편집점 한계 <span class="mark-chip">4~6초 컷</span></td></tr>
-            <tr><td>5</td><td>추후 합본 제작시 잘못된 버전을 붙이는 경우도 많아서 계속 수정을 지시하게 됩니다.</td><td>버전·컷 관리 필요</td></tr>
-            <tr><td>6</td><td>일관성 있는 인물 생성으로 스토리 영상을 제작</td><td class="mark-knowledge">기준 이미지 / R2V 필요 <span class="mark-chip">R2V</span></td></tr>
-            <tr><td>7</td><td>사운드 생성(음성, 나래이션)의 정확도와 일관성 (첫번째 5초와 마지막 5초의 성우를 동일한 목소리를 쓰길 희망)</td><td class="mark-knowledge">내레이션·BGM 분리 필요 <span class="mark-chip">TTS/BGM</span></td></tr>
-            <tr><td>8</td><td>제작하면서 점점 영상 톤이 변경되는 점 보완</td><td class="mark-knowledge">키비주얼·톤 고정 필요 <span class="mark-chip">기준 이미지</span></td></tr>
-            <tr><td>9</td><td>모든 영상의 한글 컨트롤이 쉽지 않을 것 같은데 처음부터 최대한 배제하고 생성하는 법</td><td class="mark-knowledge">한글 생성 한계 <span class="mark-chip">후편집</span></td></tr>
-          </table>
-          <div class="source-note">연한 표시 = 다음 장 사전지식에서 설명</div>
-        </div><div class="footer"><span>사전지식 표시</span><div class="progress"><span></span></div></div>
-      </section>
-
-      <section class="slide section"><div class="page-tag">SECTION 2</div>
-        <div class="content">
-          <div class="eyebrow">2. 공통적으로 알아두면 좋은 내용</div>
-          <h1>해결 방법은 복잡하지 않습니다.<br/>작게 나눠 만들면 됩니다</h1>
-        </div><div class="footer"><span>공통 지식</span><div class="progress"><span></span></div></div>
-      </section>
-
-      <section class="slide"><div class="page-tag">05</div>
-        <div class="content">
-          <div class="eyebrow">영상 제작 방식</div>
-          <h2>영상은 가능하면 R2V로 만드는 것이 좋습니다</h2>
-          <div class="two-pane">
-            <div class="card">
-              <h3>R2V란?</h3>
-              <p>기준 이미지나 레퍼런스 이미지를 넣고, 그 이미지를 바탕으로 영상을 만드는 방식입니다.</p>
-              <div class="pill-row"><span class="pill">추천 모델: Seedance 2.0</span><span class="pill">4~6초 단위 제작</span></div>
-            </div>
-            <div class="card">
-              <h3>왜 좋은가?</h3>
-              <ul><li>인물이나 캐릭터 외형을 유지하기 쉬움</li><li>장소 분위기를 유지하기 쉬움</li><li>컷마다 톤이 크게 바뀌는 것을 줄일 수 있음</li><li>실사·캐릭터·동물 영상 모두에 활용 가능</li></ul>
-            </div>
-          </div>
-          <div class="big-note">단, R2V도 글자·음성·긴 영상 일관성까지 완벽히 해결해주지는 않습니다.</div>
-        </div><div class="footer"><span>R2V / Seedance 2.0</span><div class="progress"><span></span></div></div>
-      </section>
-
-      <section class="slide"><div class="page-tag">06</div>
-        <div class="content">
-          <div class="eyebrow">R2V의 한계와 해결 방법</div>
-          <h2>R2V를 써도 따로 챙겨야 하는 부분이 있습니다</h2>
-          <table class="table">
-            <tr><th>한계</th><th>해결 방법</th></tr>
-            <tr><td>같은 인물·캐릭터가 조금씩 달라질 수 있음</td><td>기준 이미지, 캐릭터 시트, 이전 컷 마지막 프레임을 사용</td></tr>
-            <tr><td>긴 영상에서 얼굴·옷·배경이 변할 수 있음</td><td>4~6초 단위로 짧게 만들고 나중에 합치기</td></tr>
-            <tr><td>한글 자막·간판이 틀릴 수 있음</td><td>영상 안에서는 텍스트를 빼고, 필요한 문구는 후편집으로 넣기</td></tr>
-            <tr><td>내레이션·BGM이 원하는 대로 안 나올 수 있음</td><td>목소리와 음악은 따로 제작해서 합성하기</td></tr>
-          </table>
-        </div><div class="footer"><span>R2V 한계와 해결</span><div class="progress"><span></span></div></div>
-      </section>
-
-      <section class="slide"><div class="page-tag">07</div>
-        <div class="content">
-          <div class="eyebrow">오디오</div>
-          <h2>효과음은 영상에서 가져가도 되지만,<br/>내레이션과 BGM은 따로 만드는 게 안전합니다</h2>
-          <div class="grid cols-2" style="margin-top:44px">
-            <div class="card"><h3>영상 안에서 같이 써도 되는 것</h3><ul><li>식기 소리</li><li>발걸음</li><li>주변 소음</li><li>짧은 반응음</li><li>간단한 효과음</li></ul></div>
-            <div class="card"><h3>따로 만드는 게 좋은 것</h3><ul><li>브랜드 내레이션</li><li>긴 대사</li><li>사투리 대사</li><li>동일한 성우 톤</li><li>BGM / 엔딩 내레이션</li></ul></div>
-          </div>
-          <div class="big-note">영상은 장면을 만들고, 목소리와 음악은 나중에 얹는 편이 좋습니다.</div>
-        </div><div class="footer"><span>오디오 제작</span><div class="progress"><span></span></div></div>
-      </section>
-
-      <section class="slide"><div class="page-tag">08</div>
-        <div class="content">
-          <div class="eyebrow">한글 텍스트</div>
-          <h2>한글은 영상 안에서 만들지 않는 편이 가장 안전합니다</h2>
-          <div class="number-list">
-            <div class="number-item"><div><strong>영상 생성 때는 글자를 빼기</strong><span>“자막 없음”, “텍스트 없음”, “간판 글자 없음”처럼 요청합니다.</span></div></div>
-            <div class="number-item"><div><strong>꼭 필요한 간판은 이미지로 먼저 만들기</strong><span>한글이 정확히 들어간 이미지를 만든 뒤 R2V 레퍼런스로 사용합니다.</span></div></div>
-            <div class="number-item"><div><strong>중요 문구는 후편집으로 넣기</strong><span>브랜드명, 엔드카피, 숫자, 기관명은 편집 단계에서 넣고 검수합니다.</span></div></div>
-          </div>
-          <div class="big-note">나눔의집 사례처럼 “나눔의집”, “제공” 같은 단어는 최종 편집에서 직접 넣는 것이 안전합니다.</div>
-        </div><div class="footer"><span>한글 텍스트</span><div class="progress"><span></span></div></div>
-      </section>
-
-      <section class="slide"><div class="page-tag">09</div>
-        <div class="content">
-          <div class="eyebrow">기준 이미지</div>
-          <h2>같은 인물·동물·캐릭터가 여러 번 나오면 기준 이미지가 먼저 필요합니다</h2>
-          <div class="workflow">
-            <div class="step"><b>1</b><strong>얼굴</strong><span>정면, 측면, 표정</span></div>
-            <div class="step"><b>2</b><strong>복장</strong><span>색상, 소품, 안경 유무</span></div>
-            <div class="step"><b>3</b><strong>장소</strong><span>배경, 시간대, 빛</span></div>
-            <div class="step"><b>4</b><strong>움직임</strong><span>인사, 걷기, 말하기</span></div>
-            <div class="step"><b>5</b><strong>다음 컷</strong><span>마지막 프레임을 참고</span></div>
-          </div>
-          <div class="grid cols-3" style="margin-top:34px">
-            <div class="card tight"><div class="mini-title">나고양씨</div><p>털색, 눈 모양, 표정, 입 모양</p></div>
-            <div class="card tight"><div class="mini-title">포석호</div><p>캐릭터 비율, 색상, 표정, 포즈</p></div>
-            <div class="card tight"><div class="mini-title">나눔의집</div><p>조끼, 위생모, 할머니, 식판, 급식소</p></div>
-          </div>
-        </div><div class="footer"><span>기준 이미지</span><div class="progress"><span></span></div></div>
-      </section>
-
-      <section class="slide section"><div class="page-tag">SECTION 3</div>
-        <div class="content">
-          <div class="eyebrow">3. 유즈케이스별 피드백</div>
-          <h1>이제 각 사례별로<br/>추가 팁을 정리합니다</h1>
-        </div><div class="footer"><span>유즈케이스별 피드백</span><div class="progress"><span></span></div></div>
-      </section>
-
-      <section class="slide"><div class="page-tag">10</div>
-        <div class="content">
-          <div class="eyebrow">유즈케이스 1</div>
-          <h2>나고양씨의 운수 좋은 날<br/>말하는 동물은 표정과 자막으로 살립니다</h2>
-          <div class="two-pane">
-            <div class="card"><h3>왜 어려운가?</h3><ul><li>동물 입모양과 대사가 정확히 맞기 어려움</li><li>표정이 원하는 만큼 자연스럽지 않을 수 있음</li><li>컷마다 얼굴이 달라질 수 있음</li><li>대사가 길수록 어색함이 잘 보임</li></ul></div>
-            <div class="callout"><h3>제작 팁</h3><ul><li>기준 이미지를 먼저 만든다</li><li>표정 이미지를 여러 개 만든다</li><li>대사는 짧게 쓴다</li><li>입모양보다 표정·자막·성우 톤으로 전달한다</li><li>한 컷은 3~5초로 짧게 만든다</li></ul></div>
-          </div>
-        </div><div class="footer"><span>나고양씨</span><div class="progress"><span></span></div></div>
-      </section>
-
-      <section class="slide"><div class="page-tag">11</div>
-        <div class="content">
-          <div class="eyebrow">유즈케이스 2</div>
-          <h2>포석호 캐릭터 활용<br/>먼저 캐릭터 기준표를 만들어야 합니다</h2>
-          <div class="two-pane">
-            <div class="card"><h3>왜 어려운가?</h3><ul><li>컷마다 캐릭터 외형이 달라질 수 있음</li><li>색상이나 비율이 바뀔 수 있음</li><li>표정과 포즈가 캐릭터답지 않을 수 있음</li><li>작은 차이도 브랜드 캐릭터에서는 크게 보임</li></ul></div>
-            <div class="callout"><h3>제작 팁</h3><ul><li>정면, 측면, 3/4 뷰를 먼저 만든다</li><li>표정과 포즈 이미지를 만든다</li><li>색상과 비율을 고정한다</li><li>R2V로 움직임을 만든다</li><li>대사, 로고, 자막은 후편집한다</li></ul></div>
-          </div>
-          <div class="big-note">포석호는 매번 새로 그리는 것이 아니라, <span class="accent">같은 캐릭터를 움직이게 만드는 것</span>으로 접근해야 합니다.</div>
-        </div><div class="footer"><span>포석호 캐릭터</span><div class="progress"><span></span></div></div>
-      </section>
-
-      <section class="slide"><div class="page-tag">12</div>
-        <div class="content">
-          <div class="eyebrow">유즈케이스 3</div>
-          <h2>실사 콘텐츠 / 나눔의집<br/>현실 디테일이 맞아야 자연스럽습니다</h2>
-          <div class="grid cols-2" style="margin-top:40px">
-            <div class="card"><h3>발생한 문제</h3><ul><li>할머니가 컷마다 달라 보임</li><li>조끼와 위생모가 유지되지 않음</li><li>식판이 그릇처럼 나오거나 구성물이 바뀜</li><li>한글 자막과 엔드카피가 틀림</li><li>같은 컷 반복, 블랙 프레임, 오디오 누락</li></ul></div>
-            <div class="callout"><h3>제작 팁</h3><ul><li>실제 장소 레퍼런스를 먼저 확인</li><li>봉사자, 어르신 기준 이미지 제작</li><li>식판, 조끼, 위생모도 이미지로 고정</li><li>한글은 후편집</li><li>합본 후 처음부터 끝까지 확인</li></ul></div>
-          </div>
-        </div><div class="footer"><span>실사 콘텐츠</span><div class="progress"><span></span></div></div>
-      </section>
-
-      <section class="slide"><div class="page-tag">13</div>
-        <div class="content">
-          <div class="eyebrow">나눔의집 핵심 메시지</div>
-          <h2>나눔의집 영상은 ‘무료급식’보다<br/>‘안부를 나누는 장면’이 중요합니다</h2>
-          <div class="grid cols-3" style="margin-top:48px">
-            <div class="card"><h3>핵심 대사</h3><p>“어르신, 오늘은 좀 어떠셨어요?”</p></div>
-            <div class="card"><h3>감정 방향</h3><p>밥 한 끼가 안부와 연결이 되는 순간</p></div>
-            <div class="card"><h3>보여줄 것</h3><p>식사, 눈맞춤, 대화, 배웅, 한낮의 따뜻한 분위기</p></div>
-          </div>
-          <div class="big-note">실사 콘텐츠에서는 그럴듯한 장면보다 <span class="accent">현실적으로 말이 되는 디테일</span>이 중요합니다.</div>
-        </div><div class="footer"><span>나눔의집 메시지</span><div class="progress"><span></span></div></div>
-      </section>
-
-      <section class="slide"><div class="page-tag">14</div>
-        <div class="content">
-          <div class="eyebrow">유즈케이스 4</div>
-          <h2>음악 제작 / 포스코 주제가<br/>참고곡은 ‘분위기만’ 참고해야 합니다</h2>
-          <div class="two-pane">
-            <div class="card"><h3>대화에서 나온 요청</h3><ul><li>참고곡: kpop-spotlight.mp3</li><li>20대 여성 보컬 포스코 주제가</li><li>분위기는 비슷하게</li><li>멜로디와 가사는 똑같지 않게</li></ul></div>
-            <div class="card"><h3>참고곡에서 본 요소</h3><ul><li>밝은 K-pop / dance-pop</li><li>R&B 팝 감성</li><li>빠르고 추진력 있는 업비트</li><li>밝은 synth, punchy clap/snare</li><li>자신감 있는 20대 여성 보컬</li></ul></div>
-          </div>
-          <div class="big-note">참고곡의 에너지와 보컬 톤은 참고하되, <span class="accent">멜로디·가사·훅·코드 진행은 새로 만들어야 합니다.</span></div>
-        </div><div class="footer"><span>음악 제작</span><div class="progress"><span></span></div></div>
-      </section>
-
-      <section class="slide"><div class="page-tag">15</div>
-        <div class="content">
-          <div class="eyebrow">음악을 잘 만들기 위해 지정할 것</div>
-          <h2>음악은 ‘장르’만 말하면 부족합니다</h2>
-          <div class="grid cols-4" style="margin-top:44px">
-            <div class="card tight"><div class="mini-title">장르·템포</div><p>K-pop, dance-pop, 124 BPM, 빠른 업비트</p></div>
-            <div class="card tight"><div class="mini-title">보컬</div><p>20대 여성 보컬, 밝은 목소리, 힘 있는 후렴</p></div>
-            <div class="card tight"><div class="mini-title">분위기</div><p>희망적, 세련된, 기업 주제가 같지만 올드하지 않게</p></div>
-            <div class="card tight"><div class="mini-title">편곡</div><p>bright synth, punchy clap, driving bass, strings</p></div>
-          </div>
-          <div class="code" style="margin-top:42px">prompt: Upbeat Korean K-pop corporate anthem, 124 BPM, female vocal in her 20s, bright synths, punchy claps, inspiring chorus, modern POSCO brand feeling, original melody only. Do not copy any existing melody, lyrics, chord progression, or hook.</div>
-        </div><div class="footer"><span>음악 프롬프트</span><div class="progress"><span></span></div></div>
-      </section>
-
-      <section class="slide"><div class="page-tag">16</div>
-        <div class="content">
-          <div class="eyebrow">음악 생성 입력값</div>
-          <h2>실제로 넣는 값은 단순합니다</h2>
-          <table class="table simple-table">
-            <tr><th>입력값</th><th>설명</th><th>고객이 챙길 것</th></tr>
-            <tr><td>prompt</td><td>음악 스타일, 분위기, 장르, 보컬, 악기, 템포 설명</td><td>원하는 느낌과 피하고 싶은 느낌을 함께 쓰기</td></tr>
-            <tr><td>lyrics</td><td>직접 넣을 가사</td><td>브랜드명, 메시지, 후렴 문구를 먼저 확정하기</td></tr>
-          </table>
-          <div class="big-note">둘 다 넣으면 “가사 + 음악 스타일”을 함께 반영할 수 있습니다.</div>
-        </div><div class="footer"><span>음악 입력값</span><div class="progress"><span></span></div></div>
-      </section>
-
-      <section class="slide section"><div class="page-tag">WRAP-UP</div>
-        <div class="content">
-          <div class="eyebrow">마무리</div>
-          <h1>다음 제작 전에는<br/>이것만 먼저 확인하면 됩니다</h1>
-        </div><div class="footer"><span>체크리스트</span><div class="progress"><span></span></div></div>
-      </section>
-
-      <section class="slide"><div class="page-tag">17</div>
-        <div class="content">
-          <div class="eyebrow">제작 전 체크리스트</div>
-          <h2>시작 전에 정하면 좋은 것</h2>
-          <div class="checklist">
-            <div class="card"><h3>영상 제작 전</h3><ul><li>말하는 동물 / 캐릭터 / 실사 중 무엇인지 정하기</li><li>기준 이미지가 필요한지 확인하기</li><li>한글 텍스트를 후편집할지 정하기</li><li>목소리와 BGM을 따로 만들지 정하기</li><li>4~6초 단위 컷을 미리 나누기</li></ul></div>
-            <div class="card"><h3>음악 제작 전</h3><ul><li>참고곡에서 무엇을 참고할지 정하기</li><li>새로 만들어야 하는 부분을 명확히 쓰기</li><li>장르, 보컬, 템포, 분위기, 악기 쓰기</li><li>기존 멜로디·가사·훅은 복사하지 말라고 쓰기</li></ul></div>
-          </div>
-        </div><div class="footer"><span>제작 전 체크리스트</span><div class="progress"><span></span></div></div>
-      </section>
-
-      <section class="slide"><div class="page-tag">18</div>
-        <div class="content">
-          <div class="eyebrow">합본 전 체크리스트</div>
-          <h2>완성본이라고 말하기 전에는<br/>처음부터 끝까지 다시 봐야 합니다</h2>
-          <div class="checklist">
-            <div class="card"><h3>영상 확인</h3><ul><li>같은 컷이 반복되지 않는가?</li><li>블랙 프레임이 없는가?</li><li>인물/캐릭터가 같은가?</li><li>소품이 컷마다 바뀌지 않는가?</li><li>색감과 톤이 이어지는가?</li></ul></div>
-            <div class="card"><h3>소리·자막 확인</h3><ul><li>소리가 중간에 사라지지 않는가?</li><li>내레이션과 BGM이 겹치지 않는가?</li><li>목소리 톤이 유지되는가?</li><li>한글 오타가 없는가?</li><li>엔드카피가 정확한가?</li></ul></div>
-          </div>
-        </div><div class="footer"><span>합본 전 체크리스트</span><div class="progress"><span></span></div></div>
-      </section>
-
-      <section class="slide section kicker"><div class="page-tag">END</div>
-        <div class="content">
-          <div class="eyebrow">마지막 정리</div>
-          <h1>핵심은<br/>작게 나눠 만들고,<br/>마지막에 붙이는 것입니다</h1>
-          <p class="subtitle">영상은 R2V로 짧게, 목소리·BGM·자막은 따로, 한글과 브랜드 문구는 후편집으로 관리합니다.</p>
-          <div class="quote" style="margin-top:54px;max-width:1280px">AI에게 한 번에 완성본을 맡기기보다,<br/>장면·목소리·자막·음악을 나눠 만들면 결과물이 훨씬 안정적으로 나옵니다.</div>
-        </div><div class="footer"><span>감사합니다</span><div class="progress"><span></span></div></div>
-      </section>
-
-    </main>
-  </div>
-  <nav class="nav" aria-label="slide navigation">
-    <button id="prev" type="button">←</button>
-    <div class="count" id="count">1 / 1</div>
-    <button id="next" type="button">→</button>
-    <button id="print" type="button">Print</button>
-  </nav>
-
+  </main></div>
+  <nav class="nav" aria-label="slide navigation"><button id="prev" type="button">←</button><div class="count" id="count">1 / 1</div><button id="next" type="button">→</button><button id="print" type="button">Print</button></nav>
   <script>
     (function(){
-      const stage = document.getElementById('stage');
-      const slides = Array.from(document.querySelectorAll('.slide'));
-      const count = document.getElementById('count');
-      const progressBars = Array.from(document.querySelectorAll('.progress span'));
-      let index = Number(localStorage.getItem('poscoDeckSlide') || 0);
-      if (!Number.isFinite(index) || index < 0 || index >= slides.length) index = 0;
-
-      function scaleStage(){
-        const sw = window.innerWidth, sh = window.innerHeight;
-        const navReserve = 34;
-        const scale = Math.min(sw/1920, (sh - navReserve)/1080, 1);
-        stage.style.transform = `translate(-50%, -50%) scale(${Math.max(scale, 0.2)})`;
-      }
-      function render(){
-        slides.forEach((s,i)=>s.classList.toggle('active', i === index));
-        count.textContent = `${index+1} / ${slides.length}`;
-        const pct = `${((index+1)/slides.length)*100}%`;
-        progressBars.forEach(b=>b.style.width = pct);
-        localStorage.setItem('poscoDeckSlide', String(index));
-        document.title = `${index+1}/${slides.length} AI 영상·음악 제작 피드백 세션`;
-      }
-      function go(delta){ index = Math.max(0, Math.min(slides.length-1, index + delta)); render(); }
-      document.getElementById('prev').addEventListener('click',()=>go(-1));
-      document.getElementById('next').addEventListener('click',()=>go(1));
-      document.getElementById('print').addEventListener('click',()=>window.print());
-      window.addEventListener('keydown',(e)=>{
-        if(['ArrowRight','PageDown',' '].includes(e.key)){ e.preventDefault(); go(1); }
-        if(['ArrowLeft','PageUp'].includes(e.key)){ e.preventDefault(); go(-1); }
-        if(e.key === 'Home'){ e.preventDefault(); index = 0; render(); }
-        if(e.key === 'End'){ e.preventDefault(); index = slides.length-1; render(); }
-      });
-      window.addEventListener('resize',scaleStage);
-      scaleStage(); render();
+      const stage=document.getElementById('stage'); const slides=Array.from(document.querySelectorAll('.slide')); const count=document.getElementById('count'); const progressBars=Array.from(document.querySelectorAll('.progress span'));
+      let index=Number(localStorage.getItem('poscoDeckSlideSimple')||0); if(!Number.isFinite(index)||index<0||index>=slides.length) index=0;
+      function scaleStage(){const sw=window.innerWidth, sh=window.innerHeight; const navReserve=34; const scale=Math.min(sw/1920,(sh-navReserve)/1080,1); stage.style.transform=`translate(-50%, -50%) scale(${Math.max(scale,0.2)})`;}
+      function render(){slides.forEach((s,i)=>s.classList.toggle('active',i===index)); count.textContent=`${index+1} / ${slides.length}`; const pct=`${((index+1)/slides.length)*100}%`; progressBars.forEach(b=>b.style.width=pct); localStorage.setItem('poscoDeckSlideSimple',String(index)); document.title=`${index+1}/${slides.length} AI 제작 피드백 세션`;}
+      function go(delta){index=Math.max(0,Math.min(slides.length-1,index+delta)); render();}
+      document.getElementById('prev').addEventListener('click',()=>go(-1)); document.getElementById('next').addEventListener('click',()=>go(1)); document.getElementById('print').addEventListener('click',()=>window.print());
+      window.addEventListener('keydown',(e)=>{if(['ArrowRight','PageDown',' '].includes(e.key)){e.preventDefault();go(1)} if(['ArrowLeft','PageUp'].includes(e.key)){e.preventDefault();go(-1)} if(e.key==='Home'){e.preventDefault();index=0;render()} if(e.key==='End'){e.preventDefault();index=slides.length-1;render()}});
+      window.addEventListener('resize',scaleStage); scaleStage(); render();
     })();
   </script>
 </body>
